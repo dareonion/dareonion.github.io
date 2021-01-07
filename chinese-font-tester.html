@@ -1,0 +1,60 @@
+<html>
+<body>
+
+  <div id="root"></div>
+    
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script type="text/babel">
+    class App extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          testText: '黃黄 起 微软雅黑'
+        };
+        this.handleTestTextChange = this.handleTestTextChange.bind(this);
+      }
+
+      handleTestTextChange(e) {
+        this.setState({
+          testText: e.target.value
+        });
+      }
+
+      render() {
+        // Arial, sans-serif, "Microsoft YaHei","微软雅黑","SimSun","宋体"
+        // font-family: "Noto Sans", "Noto Sans CJK SC", sans-serif;
+        // font-family: "Noto Sans", "Noto Sans CJK TC", sans-serif;
+        const FONT_NAMES = ['"Noto Sans"', '"Noto Sans CJK SC"', '"Noto Sans CJK TC"', 'Arial', 'sans-serif', '"Microsoft YaHei"','"微软雅黑"','"SimSun"','"宋体"', '"PingFang SC"', '"PingFang TC"', "TW-MOE-Std-Kai"];
+        const trs = [];
+        for (const font_name of FONT_NAMES) {
+          const style = {'fontFamily': font_name};
+          trs.push(
+              <tr>
+              <td>{font_name}</td>
+              <td style={style}>{this.state.testText}</td>
+              </tr>
+          );
+        }
+        return (
+            <div className="app">
+            <input
+              type="text"
+              placeholder="Chinese text"
+              value={this.state.testText}
+              onChange={this.handleTestTextChange}
+            />
+            <table><tbody>{trs}</tbody></table>
+            </div>
+        );
+      }
+    }
+
+    ReactDOM.render(
+      <App />,
+      document.getElementById('root')
+    );
+  </script>
+</body>
+</html>
